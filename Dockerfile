@@ -6,13 +6,13 @@ WORKDIR /app
 
 # Install app dependencies
 COPY package*.json ./
-RUN npm install
+RUN yarn install
 
 # Copy source code
 COPY . .
 
 # Build TypeScript app
-RUN npm run build
+RUN yarn build
 
 # Stage 2: Run Node.js app
 FROM node:21-alpine
@@ -25,7 +25,7 @@ COPY --from=build /app/dist .
 
 # Install only production dependencies
 COPY package*.json ./
-RUN npm install --production
+RUN yarn install --production
 
 COPY .env ./
 
